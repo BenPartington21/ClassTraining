@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css" </head>
+    <style>
+        /*Embedded styles are more powerful than external styles*/
+
+        p {
+            color: black;
+            
+        }
+        
+        
+        body > aside{
+            min-height: auto;
+            display: none;
+        }
+        
+        
+        
+    </style>
+
+    <body>
+
+        <header id="main-header" class "top-header">
+            <h1>HTML CSS JS Essentials</h1>
+            <Nav>
+                <ul>
+                    <li>
+                        <a href="index.html" class="icon-home">home</a>
+                    </li>
+                    <li>
+                        <a href="products.html">products</a>
+                    </li>
+                    <li>
+                        <a href="contact.html">contact</a>
+                    </li>
+                </ul>
+            </Nav>
+        </header>
+
+
+        <aside>
+            <article>
+                <figure class="float-right fade-and-spin">
+                    <img src="assets/sm-logo.gif" alt="SM Logo">
+                    <figcaption>SM Logo</figcaption>
+                </figure>
+                <header>
+                    <h1>Featured Promotion</h1>
+                </header>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis dolorum fugiat, sit labore tenetur neque unde, consectetur sed voluptas libero? Repudiandae rem at rerum dignissimos dolore maxime consequatur ut sed!</p>
+                <p>Nulla, dolores quidem! Minima dignissimos recusandae distinctio temporibus possimus earum vero consequuntur, perferendis, quasi porro veritatis autem eos ea. Nostrum ipsa voluptas excepturi perspiciatis atque id deleniti aut veritatis dolores?</p>
+            </article>
+        </aside>
+
+
+        <section class="clear-float">
+            <h1>Contact Us</h1>
+            
+            <form action="http://www.google.com/search" method="get">
+               <input type="hidden" name="as_sitesearch" value="www.fujitsu.com">
+                <input type="text" name="q">
+                <button type="submit">Search</button>
+            </form>             
+            
+            <form action="#" method="get">
+                
+                <ul>
+                    
+                    <li>
+                        <label for="name">Your Name</label>
+                        <input type="text" name="name" placeholder="John Doe" required>
+                    </li>
+                       <li>
+                        <label for="email">Your Email</label>
+                        <input type="email" name="email" placeholder="someone@example.com" required>
+                    </li>
+                    
+                    <li>
+                        <label for="message">Message</label>
+                        <textarea name="message" required maxlength="1000"></textarea>
+                        
+                    </li>
+                    
+                    
+                    <li class="horizontal">
+                    Gender
+                <label>Male <input type="radio" name="gender" value="male"></label>
+                <label>Female <input type="radio" name="gender" value="female"></label>
+                    </li>
+                    
+                    <li>
+                        <label for="dob">Date of Birth</label>
+                        <input type="date" name="dob">
+                    </li>
+                    
+                    <li>
+                        
+                        <label for="county">County</label>
+                        <select name="county">
+                               <option>Lancashire</option>
+                               <option>Yorkshire</option>
+                               <option>Buckinghamshire</option>
+                               <option>Stirlingshire</option>
+                               <option>Clackmannanshire</option>
+                        </select>   
+                        
+                    </li>
+                
+                    
+                    <li>
+                        <button type="submit">Send</button>
+                    </li>
+                    
+                    
+                    
+                </ul>
+                
+            </form>
+            
+            
+            
+            
+        </section>
+
+        <footer>
+
+            &copy; Fujitsu 2018 | <a href="tell:01613451937">Call us on 0161 345 1937</a> | <a href="terms.pdf">Terms &amp; Conditions</a>
+
+        </footer>
+
+    </body>
+
+</html>

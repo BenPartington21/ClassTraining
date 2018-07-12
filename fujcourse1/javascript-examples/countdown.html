@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Countdown</title>
+</head>
+
+<body>
+
+    <div id="countdown"></div>
+
+    <div>
+        <input type="number" id="countdownValue">
+        <button type="button" id="startBtn">Start</button>
+    </div>
+
+
+    <script>
+        var CountDown = {
+
+
+            start: 10,
+            int: false,
+            updateTick: function() {
+                if (CountDown.start > 0) {
+                    CountDown.start--;
+                    document.getElementById('countdown').innerHTML = CountDown.start;
+                } else {
+                    CountDown.finished();
+                }
+            },
+            finished: function() {
+                document.getElementById('countdown').innerHTML = 'Time UP!';
+                clearInterval(CountDown.int);
+            },
+            startCountdown: function(startValue) {
+                CountDown.start = startValue;
+                CountDown.int = setInterval(CountDown.updateTick, 1000);
+                CountDown.updateTick();
+
+            }
+
+        }
+
+            document.getElementById('startBtn').addEventListener('click', function() {
+            CountDown.startCountdown(document.getElementById('countdownValue').value);
+        })
+    </script>
+
+</body>
+</html>

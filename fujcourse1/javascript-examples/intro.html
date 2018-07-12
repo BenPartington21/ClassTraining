@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+   
+   <input type="text" id="userNameTxt">
+   <button type="button" id="clickBtn">Click Me</button>
+   <div id="message"></div>
+   
+   
+    <script>
+        
+        var welcomeMessage = 'Hello ';
+        
+        var userName = 'Ben';
+        document.getElementById('message').innerHTML = userName;
+        
+        //listen for the user pressing the Enter key
+        document.addEventListener('keyup',function(event){
+            //console.log(event);
+            //check if the key pressed was the Enter key (keyCode == 13)
+            if(event.keyCode == 13){
+                displayMessage();
+            }
+        
+            
+        });// end of keyup handler
+        
+        
+        
+        
+        //listen for the user clicking the clickBtn
+        document.getElementById('clickBtn').addEventListener('click' ,displayMessage);
+         function displayMessage(){
+             userName = document.getElementById('userNameTxt').value;
+             document.getElementById('message').innerHTML = welcomeMessage + userName;
+         }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+/*        var yes = confirm('Are you sure you want to delete?');
+//        if(yes ==true){
+//            alert('The item was deleted');
+//        }else{
+//         alert('You jibbed');
+//
+          }*/
+        
+        
+        
+    </script>
+</body>
+
+</html>

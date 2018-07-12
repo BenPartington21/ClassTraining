@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css">
+    <link rel="stylesheet" href="js/clockpicker-gh-pages/dist/bootstrap-clockpicker.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script src="js/clockpicker-gh-pages/dist/bootstrap-clockpicker.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-md bg-dark navbar-dark">
+        <a class="navbar-brand" href="#">Navbar</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <div class="collapse navbar-collapse" id="collapsibleNavbar">
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Link</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <br>
+
+    <div class="container">
+
+        <h1>My App Form</h1>
+
+        <form>
+
+            <div class="form-group">
+                <label for="activity">Activity</label>
+                <select id="activity" name="activity" class="form-control">
+             <option>Revision</option>
+             <option>Running</option>
+             <option>PS4</option>
+             <option>XBOX</option>
+             <option>Swimming</option>
+             <option>Eating</option>
+         </select>
+            </div>
+
+
+            <div class="form-group">
+                <label for="notes"></label>
+                <textarea id="notes" name="notes" class="form-control"></textarea>
+            </div>
+
+
+            <div class="form-group clockpicker">
+                <label for="startTime">Start Time</label>
+                <input name="startTime" id="startTime" type="text" class="form-control" value="00:00">
+                <span class="input-group-addon">
+        <span class="glyphicon glyphicon-time"></span>
+                </span>
+            </div>
+
+            <div class="form-group clockpicker">
+                <label for="endTime">End Time</label>
+                <input name="endTime" id="endTime" type="text" class="form-control" value="00:00">
+                <span class="input-group-addon">
+        <span class="glyphicon glyphicon-time"></span>
+                </span>
+            </div>
+
+            <div class="form-group">
+
+                <button type="button" id="saveBtn" class="btn btn-success">Save</button>
+
+                <button type="reset" class="btn btn-danger">Clear Form</button>
+                
+                <button type="button" id="deleteAllActivitiesBtn" class="btn btn-warning">Delete All Saved Activities</button>
+
+            </div>
+
+        </form>
+
+
+        <table id="activitiesTbl" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Notes</th>
+                    <th>Start</th>
+                    <th>End</th>
+                    <th>Date</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+
+
+
+
+    </div>
+    <!-- end of div.container-->
+
+    <!-- The next script tag is a Handlebars semantic Template-->
+    <script type="text/x-handlebars-template" id="activity-template">
+        {{#each activities}}
+        <tr>
+            <td>{{type}}</td>
+            <td>{{notes}}</td>
+            <td>{{startTime}}</td>
+            <td>{{endTime}}</td>
+            <td>{{date}}</td>
+        </tr>
+        {{/each}}
+    </script>
+
+
+    <script type="text/javascript">
+        $('.clockpicker').clockpicker({
+            placement: 'top',
+            align: 'left',
+            donetext: 'Close',
+            vibrate: 'true'
+        });
+
+
+
+        //create an object to manage data saving
+        var dataModel = {
+
+            data: {
+                activities: []
+            },
+
+            saveData: function(dataToSave) {
+
+                //add to dataModel.data.activities array
+                dataModel.data.activities.push(dataToSave);
+                //save to localStorage for long term storage
+                
+                localStorage.setItem('activities', JSON.stringify(dataModel.data.activities));
+                
+                dataModel.renderData();
+                
+                //resetthe form progremmatically
+                $('form')[0].reset();
+
+            }, //end of saveData
+
+            getHistoricalData: function() {
+
+                //check if localStorage has an activities key
+                if (localStorage.getItem('activities') != undefined) {
+                    dataModel.data.activities =
+                        JSON.parse(localStorage.getItem('activities'));
+                    //console.log(dataModel);
+                    dataModel.renderData();
+                }
+
+            }, //end of getHistoricalData
+
+            renderData: function() {
+
+                //use Handlebars to render
+                var source = $('#activity-template').html();
+                var template = Handlebars.compile(source);
+                var tbodyHTML = template(dataModel.data);
+                $('#activitiesTbl tbody').html(tbodyHTML);
+
+            },//end of renderData
+            
+            deleteAllActivities: function(){
+                
+                //delete items stored in datamodel.data.activities
+                dataModel.data.activities = []
+                //clear localStorage
+                localStorage.clear();
+                //rerender the data
+                dataModel.renderData();
+                
+                
+            }//end of deleteAllActivities
+
+        } //end of dataModel
+
+
+        //listen for the user clicking the saveBtn
+        $('#saveBtn').click(function() {
+
+            //prepare our activity object
+            var activityObj = {
+                type: $('#activity').val(),
+                notes: $('#notes').val(),
+                startTime: $('#startTime').val(),
+                endTime: $('#endTime').val(),
+                date: new Date()
+            }
+
+            dataModel.saveData(activityObj);
+
+        }); //end of saveBtn.click
+        
+        
+        //listen for the user clicking the deleteAllActivitiesBtn
+        $('#deleteAllActivitiesBtn').click(function(){
+            dataModel.deleteAllActivities();
+        });//end of deleteAllActivitiesBtn
+
+
+        //go get any historical data rom localStorage and add to dataModel
+        dataModel.getHistoricalData();
+
+    </script>
+
+
+
+
+
+
+
+
+
+</body>
+
+</html>

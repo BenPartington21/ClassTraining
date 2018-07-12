@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+
+<body>
+
+
+
+    <div id="test"></div>
+
+
+
+    <script>
+        var num = 0;
+        for (var i = 1; i < 20; i++) {
+        num += i;
+        document.getElementById('test').innerHTML = num;
+        }
+        
+        //ismple try and catch
+        //a = b;
+        try{
+            var a =1;
+            var b =2;
+            if(a != b){
+                throw new Error('Whoops');
+            }
+        }
+        catch (e){
+           // console.log(e);
+            if(e instanceof ReferenceError){
+                console.log(e);
+            }
+        }
+        
+        
+        
+        //custom errors
+        class CustomError extends Error{
+            constructor(customParameter = 'England 1 Croatia 0',...params){
+                //invoke the base class (error) + constructor - this makes sure our custom class has all the default Error functionality
+                super(...params);
+                //start creating our own custom propert
+                this.customProperty = customParameter;
+            }
+        }
+        
+        
+        try{
+            throw new CustomError('England 1 Croatia 0','We are in the final');
+        }
+        catch(e){
+            console.log(e.customProperty);
+            console.log(e.message);
+            console.log(e.date);
+            console.log(e.stack);
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+    </script>
+</body>
+
+</html>

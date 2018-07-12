@@ -1,0 +1,36 @@
+<?php
+
+//set the title for the page
+$title = 'PHP Course - Home Page';
+
+include 'includes/header.php';
+
+?>
+
+    <div class="container">
+
+        <a href="login.php">Sign In</a>
+
+        <?php
+    
+    if(isset($_GET['userName'])){
+        $userName = $_GET['userName'];
+    }else{
+        $userName = 'Anonymous';
+    }
+    
+    echo 'Hello ' .$userName . 
+    '</h1>';
+    
+    ?>
+
+
+    </div>
+
+
+    <?php
+
+include 'includes/footer.php';
+
+
+    ?>

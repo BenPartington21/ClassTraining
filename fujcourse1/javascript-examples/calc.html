@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+</head>
+<body>
+    
+    <input type="number" id="subtotal" placeholder="Subtotal"><br>
+    <input type="number" id="rate" placeholder="Rate %"><br>
+    <button type="button" id="calcBtn">Calculate Total</button><br>
+    <output id="totalOutput"></output>
+    
+    
+    <script>
+    
+        //listen for the user clicking the calcBtn
+       document.getElementById('calcBtn').addEventListener('click',calcTotal);
+    
+       function calcTotal(){
+           var subtotal = Number(document.getElementById('subtotal').value);
+           var rate = Number(document.getElementById('rate').value);
+           var total = ((subtotal * rate) /100) + subtotal;
+           document.getElementById('totalOutput').innerHTML = total;
+       }
+    
+    </script>
+    
+    
+</body>
+</html>

@@ -1,0 +1,308 @@
+/*Normalise the default CSS settings in the browser*/
+
+@import url(assets/reset.css);
+
+@import url('https://fonts.googleapis.com/css?family=Assistant|Russo+One');
+
+
+@import url(fonts/fontello-3aedd9a5/css/fontello.css);
+@import url(fonts/fontello-3aedd9a5/css/animation.css);
+
+
+
+
+
+
+
+/*
+Selector specificity values
+
+element selector (eg p) - 1
+class selector (eg.top-header) -10
+id selector (eg #main-header) -100
+
+*/
+
+body{
+    font-family: arial;
+}
+
+p {
+    color: #ff0000;
+}
+
+top-header {
+    /*    border:1px solid red;*/
+}
+
+#main-header {
+    /*    border:3px solid green*/
+}
+
+/*descendant selector*/
+
+body > header,
+body > aside,
+body > section,
+body > footer {
+    border: 1px solid #cccccc;
+    padding: 10px;
+    margin: 10px auto 10px auto;
+    max-width: 960px;
+    border-radius: 5px;
+}
+
+body > header {
+    height: 300px;
+    background: url(assets/surfing.jpg) no-repeat;
+    background-size: 100% 100%;
+    position: relative;
+}
+
+body > header h1 {
+    font-size: 4em;
+    color: #fff;
+    text-shadow: 2px 2px 2px black
+    font-family: 'Russo One', sans-serif;
+}
+
+
+body > aside {
+    min-height: 165px;
+}
+
+
+
+
+
+section > h1 {
+    font-size: 1.8em;
+    color: #333;
+    border-bottom: 1px solid #333;
+    margin-bottom: 10px;
+    font-family: 'Assistant', sans-serif;
+}
+
+
+h1 {
+    font-size: 1.6em;
+}
+
+
+h2 {
+    font-size: 1.4em;
+}
+
+/*attribute selector used to target all links pointing to pdf documents*/
+
+a[href$=pdf] {
+    background: url(assets/pdf.png) no-repeat right;
+    padding-right: 20px;
+}
+
+
+body > header nav li {
+    /*    convert list items to inline elements so they sit horizontally. By default most html elements are displayed as block elements*/
+    display: inline;
+
+}
+
+
+body > header nav a {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#aebcbf+0,6e7774+50,0a0e0a+51,0a0809+100;Black+Gloss */
+    background: #aebcbf;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #aebcbf 0%, #6e7774 50%, #0a0e0a 51%, #0a0809 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #aebcbf 0%, #6e7774 50%, #0a0e0a 51%, #0a0809 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #aebcbf 0%, #6e7774 50%, #0a0e0a 51%, #0a0809 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#aebcbf', endColorstr='#0a0809', GradientType=0);
+    /* IE6-9 */
+    color: white;
+    padding: 7px;
+    font-weight: bold;
+    text-align: center;
+    text-decoration: none;
+}
+
+body > header nav a:hover {
+    background: green;
+    transition: background 0.5s;
+}
+
+
+
+body > header nav {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.4);
+    padding: 20px;
+    border-radius: 5px;
+}
+
+
+.float-right {
+    float: right;
+}
+
+figure {
+    border: 1px solid black;
+}
+
+
+figcaption {
+    background: black;
+    color: white;
+    padding: 5px 0;
+    text-align: center;
+}
+
+
+body > section article {
+    margin: 20px 0;
+}
+
+.content {
+    column-count: 2;
+}
+
+
+
+
+
+/*class to clear floated elements*/
+
+.clear-float {
+    clear: both;
+}
+
+.fade-and-spin {
+    animation: fadein 2s, spin 2s;
+}
+
+
+/*css animations*/
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes spin {
+    from {
+        transform: rotateY(0deg);
+    }
+    to {
+        transform: rotateY(360deg);
+    }
+}
+
+/*css media queries*/
+
+@media only screen and (max-device-width:600px) {
+    .content {
+        column-count: 1;
+    }
+}
+
+
+/*form styling*/
+
+label{
+    display: block;
+}
+
+.horizontal label{
+    display: inline;
+}
+
+
+form > ul > li{
+    margin: 15px 0;
+}
+
+input[type=text],input[type=email],select{
+    height: 25px;
+    width: 400px;
+}
+
+textarea{
+    height: 65px;
+}
+
+input:required, textarea:required{
+    background: url(form_demo/images/red_asterisk.png) no-repeat 98% 3%;
+    
+}
+
+
+input:required:valid, textarea:required:valid{
+    background: url(form_demo/images/valid.png) no-repeat 98% 3%;
+    
+}
+
+
+input:focus:invalid, textarea:focus:invalid{
+    background: url(form_demo/images/invalid.png) no-repeat 98% 3%;
+    
+}
+
+
+/*table styling*/
+
+th,td{
+    padding: 7px;
+    vertical-align: top;
+    text-align: left;
+}
+
+
+th{
+    background: #f60;
+    color: white;
+}
+
+.product-table tbody tr:nth-child(even){
+    content: '£';
+}
+
+
+
+
+#thumbs img{
+    margin: 10px;
+    opacity: 0.5;
+}
+
+#thumbs img:hover{
+    opacity: 1;
+    transition: opacity 0.5;
+}
+
+
+
+.article hearder.clickable{
+    cursor:pointer;
+    color: blue;
+}
+
+
+
+article hearder.clickable:hover{
+    color: red;
+}
+
+
+
+
+
+
+
+

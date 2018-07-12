@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en-gb">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <title>Document</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="js/colorbox-master/example1/colorbox.css">
+</head>
+<style>
+    /*Embedded styles are more powerful than external styles*/
+
+    p {
+        color: black;
+
+    }
+
+
+    body>aside {
+        min-height: auto;
+        display: none;
+    }
+
+</style>
+
+<body>
+
+    <header id="main-header" class "top-header">
+        <h1>HTML CSS JS Essentials</h1>
+        <Nav>
+            <ul>
+                <li>
+                    <a href="index.html" class="icon-home">home</a>
+                </li>
+                <li>
+                    <a href="products.html">products</a>
+                </li>
+                <li>
+                    <a href="contact.html">contact</a>
+                </li>
+            </ul>
+        </Nav>
+    </header>
+
+
+    <aside>
+        <article>
+            <figure class="float-right fade-and-spin">
+                <img src="assets/sm-logo.gif" alt="SM Logo">
+                <figcaption>SM Logo</figcaption>
+            </figure>
+            <header>
+                <h1>Featured Promotion</h1>
+            </header>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Veritatis dolorum fugiat, sit labore tenetur neque unde, consectetur sed voluptas libero? Repudiandae rem at rerum dignissimos dolore maxime consequatur ut sed!</p>
+            <p>Nulla, dolores quidem! Minima dignissimos recusandae distinctio temporibus possimus earum vero consequuntur, perferendis, quasi porro veritatis autem eos ea. Nostrum ipsa voluptas excepturi perspiciatis atque id deleniti aut veritatis dolores?</p>
+        </article>
+    </aside>
+
+
+    <section class="clear-float">
+        <h1>Products</h1>
+
+        <table border="1" class="product-table">
+            <thead>
+                <tr>
+                    <th>Make</th>
+                    <th>Model</th>
+                    <th>Description</th>
+                    <th>Cost</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+
+    </section>
+
+    <footer>
+
+        &copy; Fujitsu 2018 | <a href="tell:01613451937">Call us on 0161 345 1937</a> | <a href="terms.pdf">Terms &amp; Conditions</a>
+
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.11/handlebars.min.js"></script>
+
+    <script src="js/colorbox-master/jquery.colorbox-min.js"></script>
+
+
+    <script>
+        //listen for the user clicking on add to cart link - we use the on() method to guarantee click events will be registered on .addlinks whenever they are created      
+        $('.product-table tbody').on('click', '.addLink', function(event) {
+            //stop the browser from doing what it is being programmed to do by default.
+            event.preventDefault();
+            var productId = $(this).data('productid');
+            cart.addToCart(productId);
+        });
+
+
+        
+       
+
+        var cart = {
+
+            items: [],
+
+            addToCart: function(productId){
+                
+                
+                //check if the item is already in cart.items
+                var found = false;
+                for(var i=0 ; i< cart.items.length ; i++){
+                    if(cart.items[i]==productId){
+                        found = true;
+                        break;// stop looping
+                    }
+                }//end of for loop
+            // if(found==false){}
+            if(!found){
+                cart.items.push(productId);
+                //save to local storage for persistant storage
+                localStorage.setItem('cartItems',JSON.stringify(cart.items));
+            }else{
+                alert('product already added');
+            }
+                
+                console.log(cart.items);
+            }
+        }
+
+
+        var view = {
+
+            renderData: function(data) {
+                var source = $('#cars-template').html();
+                var template = Handlebars.compile(source);
+                var tbodyHTML = template(data);
+                $('.product-table tbody').html(tbodyHTML);
+                $('a[rel=maserati]').colorbox({
+                    width: '50%'
+                });
+            } //end of renderData
+
+        }
+
+         //check for items already stored in localstorage
+        if(localStorage.getItem('cartItems')!=undefined){
+            cart.items = JSON.parse(localStorage.getItem('cartItems'));
+        }
+
+
+
+        var communicator = {
+
+            getData: function(dataUrl) {
+                $.ajax({
+                    url: dataUrl,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(data) {
+                        view.renderData(data);
+                    },
+                    error: function(xmlHttpRequest, status, message) {
+                        console.log(message);
+                    }
+                });
+            }
+
+        }
+
+        //go get the data
+
+        communicator.getData('data/cars.json');
+
+    </script>
+
+    <!-- The next script tag is a Handlebars semantic Template-->
+    <script type="text/x-handlebars-template" id="cars-template">
+        {{#each cars}}
+        <tr>
+            <td>{{make}}</td>
+            <td>{{model}}</td>
+            <td>{{description}}</td>
+            <td>{{cost}}</td>
+            <td><a href="images2/{{imageFile}}" rel="maserati"><img width="100" src="images2/{{imageFile}}"></a></td>
+            <td><a href="#" class="addLink" data-productid="{{productId}}">Add to Cart</a></td>
+        </tr>
+        {{/each}}
+    </script>
+
+</body>
+
+</html>
